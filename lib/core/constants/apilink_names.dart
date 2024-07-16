@@ -15,4 +15,8 @@ class ApiLinkNames {
 
 // ======================Home==================================
   static const home = "$server/home";
+  static const alldisspearedpets = "$server/api/disappeared-pets";
+  static const allfoundpets = "$server/api/found-pets";
+  static const dissapearedFilteredPets = "$server/api/disappeared-pets/filter";
+  static const foundFilteredPets = "$server/api/found-pets/filter";
 }

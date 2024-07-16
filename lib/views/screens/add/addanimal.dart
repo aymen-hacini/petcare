@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/add/addanimal_controller.dart';
 import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/functions/validinput.dart';
 import 'package:petcare/views/widgets/auth/choosepet.dart';
 import 'package:petcare/views/widgets/auth/customtextfield.dart';
 import 'package:petcare/views/widgets/auth/cutombtn1.dart';
 
-class Addanimal extends StatelessWidget {
+class Addanimal extends GetView<AddanimalController> {
   const Addanimal({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => AddanimalController());
     return Hero(
       tag: "add",
       child: DefaultTabController(
@@ -33,7 +35,7 @@ class Addanimal extends StatelessWidget {
                     ),
                   ),
                   Tab(
-                    child: Container(
+                    child: SizedBox(
                       child: Text(
                         "Find",
                         style: Theme.of(context).textTheme.bodyMedium,
@@ -52,7 +54,7 @@ class Addanimal extends StatelessWidget {
   }
 }
 
-class FindTabView extends StatelessWidget {
+class FindTabView extends GetView<AddanimalController> {
   const FindTabView({
     super.key,
   });
@@ -102,9 +104,10 @@ class FindTabView extends StatelessWidget {
                 "Species",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const CustomTextfield(
+              CustomTextfield(
+                textcontroller: controller.foundspecies,
                 hint: "Enter your pet species",
-                suffixIcon: SizedBox.shrink(),
+                suffixIcon: const SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -117,9 +120,10 @@ class FindTabView extends StatelessWidget {
                 "Address",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const CustomTextfield(
+              CustomTextfield(
+                textcontroller: controller.foundaddress,
                 hint: "Your address",
-                suffixIcon: SizedBox.shrink(),
+                suffixIcon: const SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -128,6 +132,7 @@ class FindTabView extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               CustomTextfield(
+                textcontroller: controller.foundphone,
                 hint: "Your phone number",
                 isvalid: (val) => validInput(val!, 4, 12, "phone"),
                 suffixIcon: const SizedBox.shrink(),
@@ -138,8 +143,14 @@ class FindTabView extends StatelessWidget {
                 height: 20,
               ),
               Center(
-                child: Custombtn1(
-                    padding: Get.width * .1, text: "PUBLISH", onpressed: () {}),
+                child: GetBuilder<AddanimalController>(
+                  builder: (controller) => controller.isloading
+                      ? const CircularProgressIndicator()
+                      : Custombtn1(
+                          padding: Get.width * .1,
+                          text: "PUBLISH",
+                          onpressed: () => controller.createFoundPet()),
+                ),
               )
             ],
           ),
@@ -149,7 +160,7 @@ class FindTabView extends StatelessWidget {
   }
 }
 
-class DissapearedTabView extends StatelessWidget {
+class DissapearedTabView extends GetView<AddanimalController> {
   const DissapearedTabView({
     super.key,
   });
@@ -194,9 +205,10 @@ class DissapearedTabView extends StatelessWidget {
                 "Name",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const CustomTextfield(
+              CustomTextfield(
+                textcontroller: controller.name,
                 hint: "Enter pet name",
-                suffixIcon: SizedBox.shrink(),
+                suffixIcon: const SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -209,9 +221,10 @@ class DissapearedTabView extends StatelessWidget {
                 "Species",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const CustomTextfield(
+              CustomTextfield(
+                textcontroller: controller.species,
                 hint: "Enter your pet species",
-                suffixIcon: SizedBox.shrink(),
+                suffixIcon: const SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -224,9 +237,10 @@ class DissapearedTabView extends StatelessWidget {
                 "Address",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const CustomTextfield(
+              CustomTextfield(
+                textcontroller: controller.address,
                 hint: "Your address",
-                suffixIcon: SizedBox.shrink(),
+                suffixIcon: const SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -234,9 +248,10 @@ class DissapearedTabView extends StatelessWidget {
                 "Phone number",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const CustomTextfield(
+              CustomTextfield(
+                textcontroller: controller.phone,
                 hint: "Your phone number",
-                suffixIcon: SizedBox.shrink(),
+                suffixIcon: const SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -244,8 +259,14 @@ class DissapearedTabView extends StatelessWidget {
                 height: 20,
               ),
               Center(
-                child: Custombtn1(
-                    padding: Get.width * .1, text: "PUBLISH", onpressed: () {}),
+                child: GetBuilder<AddanimalController>(
+                  builder: (controller) => controller.isloading
+                      ? const CircularProgressIndicator()
+                      : Custombtn1(
+                          padding: Get.width * .1,
+                          text: "PUBLISH",
+                          onpressed: () => controller.createDisappearedPet()),
+                ),
               )
             ],
           ),

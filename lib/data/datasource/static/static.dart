@@ -10,3 +10,5 @@ List<Widget> pages = [
   const Shop(),
   const Profile()
 ];
+
+List<String> catnames = ["All", "Dogs", "Cats"];
