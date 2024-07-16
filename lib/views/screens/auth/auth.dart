@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/auth/login_controller.dart';
 import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
 import 'package:petcare/core/constants/routes_names.dart';
@@ -14,6 +15,7 @@ class Auth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => LoginControllerImp());
     return Scaffold(
       body: Stack(
         children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petcare/core/constants/color.dart';
+import 'package:petcare/core/functions/validinput.dart';
 import 'package:petcare/views/widgets/auth/choosepet.dart';
 import 'package:petcare/views/widgets/auth/customtextfield.dart';
 import 'package:petcare/views/widgets/auth/cutombtn1.dart';
@@ -101,10 +102,9 @@ class FindTabView extends StatelessWidget {
                 "Species",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "Enter your pet species",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -117,10 +117,9 @@ class FindTabView extends StatelessWidget {
                 "Address",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "Your address",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -130,7 +129,7 @@ class FindTabView extends StatelessWidget {
               ),
               CustomTextfield(
                 hint: "Your phone number",
-                onsave: (s) {},
+                isvalid: (val) => validInput(val!, 4, 12, "phone"),
                 suffixIcon: const SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
@@ -195,10 +194,9 @@ class DissapearedTabView extends StatelessWidget {
                 "Name",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "Enter pet name",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -211,10 +209,9 @@ class DissapearedTabView extends StatelessWidget {
                 "Species",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "Enter your pet species",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -227,10 +224,9 @@ class DissapearedTabView extends StatelessWidget {
                 "Address",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "Your address",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -238,10 +234,9 @@ class DissapearedTabView extends StatelessWidget {
                 "Phone number",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "Your phone number",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),

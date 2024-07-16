@@ -47,10 +47,9 @@ class Newpass extends StatelessWidget {
                     "Enter new password",
                     style: TextStyle(fontSize: 16),
                   ),
-                  CustomTextfield(
+                  const CustomTextfield(
                       hint: "Enter your new password",
-                      onsave: (s) {},
-                      suffixIcon: const SizedBox.shrink()),
+                      suffixIcon: SizedBox.shrink()),
                   const SizedBox(
                     height: 30,
                   ),
@@ -58,10 +57,9 @@ class Newpass extends StatelessWidget {
                     "Confirm password",
                     style: TextStyle(fontSize: 16),
                   ),
-                  CustomTextfield(
+                  const CustomTextfield(
                       hint: "Confirm your new password",
-                      onsave: (s) {},
-                      suffixIcon: const SizedBox.shrink()),
+                      suffixIcon: SizedBox.shrink()),
                   const SizedBox(
                     height: 80,
                   ),

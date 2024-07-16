@@ -3,17 +3,20 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/auth/signup_controller.dart';
 import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
-import 'package:petcare/core/constants/routes_names.dart';
 import 'package:petcare/views/widgets/auth/customtextfield.dart';
 import 'package:petcare/views/widgets/auth/cutombtn1.dart';
 
-class Signup extends StatelessWidget {
+import '../../../core/functions/validinput.dart';
+
+class Signup extends GetView<SignupControllerImp> {
   const Signup({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => SignupControllerImp());
     return Scaffold(
       body: ListView(
         children: [
@@ -27,6 +30,7 @@ class Signup extends StatelessWidget {
                 ),
               ),
               Form(
+                key: controller.signupform,
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       vertical: Get.height * .1, horizontal: Get.width * .07),
@@ -61,27 +65,37 @@ class Signup extends StatelessWidget {
                       ),
                       CustomTextfield(
                           hint: "First name",
-                          onsave: (s) {},
+                          textcontroller: controller.signupfistname,
                           suffixIcon: const SizedBox.shrink()),
                       CustomTextfield(
                           hint: "Last name",
-                          onsave: (s) {},
+                          textcontroller: controller.signuplastname,
                           suffixIcon: const SizedBox.shrink()),
                       CustomTextfield(
                           hint: "Email; address",
-                          onsave: (s) {},
+                          textcontroller: controller.signupemail,
+                          isvalid: (val) => validInput(val!, 8, 30, "email"),
                           suffixIcon: const SizedBox.shrink()),
                       CustomTextfield(
                           hint: "Password (+8 characters)",
-                          onsave: (s) {},
+                          textcontroller: controller.signuppassword,
+                          isvalid: (val) => validInput(val!, 8, 25, "password"),
                           suffixIcon: const SizedBox.shrink()),
                       const SizedBox(
                         height: 10,
                       ),
-                      Custombtn1(
-                          padding: Get.width * .22,
-                          text: "CREATE ACCOUNT",
-                          onpressed: () => Get.offNamed(AppRoutesNames.addpet))
+                      GetBuilder<SignupControllerImp>(
+                        builder: (controller) => controller.loading
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColor.primaryColor,
+                                ),
+                              )
+                            : Custombtn1(
+                                padding: Get.width * .22,
+                                text: "CREATE ACCOUNT",
+                                onpressed: () => controller.signUp()),
+                      )
                     ],
                   ),
                 ),

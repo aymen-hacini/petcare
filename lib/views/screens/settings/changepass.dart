@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/auth/changepass.dart';
+import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
+import 'package:petcare/core/functions/validinput.dart';
 import 'package:petcare/views/widgets/auth/customtextfield.dart';
 import 'package:petcare/views/widgets/auth/cutombtn1.dart';
 
-class Changepass extends StatelessWidget {
+class Changepass extends GetView<ChangepassControllerImp> {
   const Changepass({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => ChangepassControllerImp());
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -22,6 +26,7 @@ class Changepass extends StatelessWidget {
           width: Get.width,
           padding: EdgeInsets.symmetric(horizontal: Get.width * .07),
           child: Form(
+            key: controller.changepassform,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -40,8 +45,9 @@ class Changepass extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 CustomTextfield(
+                  textcontroller: controller.oldpass,
                   hint: "Enter your current password",
-                  onsave: (s) {},
+                  isvalid: (val) =>validInput(val!, 8, 25, "password"),
                   suffixIcon: const SizedBox.shrink(),
                   radius: 8,
                   fill: Colors.white,
@@ -51,8 +57,9 @@ class Changepass extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 CustomTextfield(
+                  textcontroller: controller.newpass,
                   hint: "Enter your new password",
-                  onsave: (s) {},
+                  isvalid: (val) =>validInput(val!, 8, 25, "password"),
                   suffixIcon: const SizedBox.shrink(),
                   radius: 8,
                   fill: Colors.white,
@@ -62,8 +69,9 @@ class Changepass extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 CustomTextfield(
+                  textcontroller: controller.confirmpass,
                   hint: "Confirm your new password",
-                  onsave: (s) {},
+                  isvalid: (val) =>validInput(val!, 8, 25, "password"),
                   suffixIcon: const SizedBox.shrink(),
                   radius: 8,
                   fill: Colors.white,
@@ -72,10 +80,18 @@ class Changepass extends StatelessWidget {
                   height: 20,
                 ),
                 Center(
-                  child: Custombtn1(
-                      padding: Get.width * .1,
-                      text: "Change password",
-                      onpressed: () {}),
+                  child: GetBuilder<ChangepassControllerImp>(
+                    builder: (controller) => controller.loading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColor.primaryColor,
+                            ),
+                          )
+                        : Custombtn1(
+                            padding: Get.width * .1,
+                            text: "Change password",
+                            onpressed: () => controller.changePass()),
+                  ),
                 )
               ],
             ),

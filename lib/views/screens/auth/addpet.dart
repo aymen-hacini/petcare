@@ -58,10 +58,9 @@ class Addpet extends StatelessWidget {
                 "Name",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -69,10 +68,9 @@ class Addpet extends StatelessWidget {
                 "Species",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 radius: 8,
                 fill: AppColor.choosepetbgcolor,
               ),
@@ -85,10 +83,9 @@ class Addpet extends StatelessWidget {
                 "Birthday",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              CustomTextfield(
+              const CustomTextfield(
                 hint: "Day/Month/Year",
-                onsave: (s) {},
-                suffixIcon: const SizedBox.shrink(),
+                suffixIcon: SizedBox.shrink(),
                 fill: AppColor.choosepetbgcolor,
                 radius: 8,
               ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petcare/core/services/services.dart';
 import 'package:petcare/routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  initialservices();
   runApp(const MyApp());
 }
 
@@ -12,7 +15,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-     
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           fontFamily: "Varela Round",

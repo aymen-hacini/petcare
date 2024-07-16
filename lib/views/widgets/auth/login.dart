@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/auth/login_controller.dart';
 import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
 import 'package:petcare/core/constants/routes_names.dart';
+import 'package:petcare/core/functions/validinput.dart';
 import 'package:petcare/views/widgets/auth/customtextfield.dart';
 import 'package:petcare/views/widgets/auth/cutombtn1.dart';
 
-class Login extends StatelessWidget {
+class Login extends GetView<LoginControllerImp> {
   const Login({
     super.key,
   });
@@ -21,6 +23,7 @@ class Login extends StatelessWidget {
           borderRadius: BorderRadius.circular(50)),
       child: Center(
         child: Form(
+          key: controller.signinform,
           child: Column(
             children: [
               Image.asset(
@@ -34,18 +37,23 @@ class Login extends StatelessWidget {
                 height: 20,
               ),
               CustomTextfield(
+                  textcontroller: controller.signinemail,
                   hint: "Email address",
-                  onsave: (s) {},
+                  isvalid: (val) => validInput(val!, 5, 40, "email"),
                   suffixIcon: const SizedBox.shrink()),
               CustomTextfield(
+                  textcontroller: controller.signinpass,
                   hint: "Password",
-                  onsave: (s) {},
-                  suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.remove_red_eye_outlined,
-                        size: 30,
-                      ))),
+                  isvalid: (val) => validInput(val!, 8, 25, "password"),
+                  ishidden: controller.ischecked,
+                  suffixIcon: GetBuilder<LoginControllerImp>(
+                    builder: (controller) => IconButton(
+                        onPressed: () => controller.hidepass(),
+                        icon: const Icon(
+                          Icons.remove_red_eye_outlined,
+                          size: 30,
+                        )),
+                  )),
               Row(
                 children: [
                   Padding(
@@ -67,10 +75,18 @@ class Login extends StatelessWidget {
               const Spacer(),
               Padding(
                   padding: EdgeInsets.symmetric(vertical: Get.height * .02),
-                  child: Custombtn1(
-                    padding: Get.width * .3,
-                    onpressed: () {},
-                    text: "Sign In",
+                  child: GetBuilder<LoginControllerImp>(
+                    builder: (controller) => controller.loading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColor.primaryColor,
+                            ),
+                          )
+                        : Custombtn1(
+                            padding: Get.width * .3,
+                            onpressed: () => controller.signIn(),
+                            text: "Sign In",
+                          ),
                   )),
             ],
           ),

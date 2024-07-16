@@ -54,10 +54,9 @@ class Addshop extends StatelessWidget {
                             "Pet house",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          CustomTextfield(
+                          const CustomTextfield(
                             hint: "Enter your pet house",
-                            onsave: (s) {},
-                            suffixIcon: const SizedBox.shrink(),
+                            suffixIcon: SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),
@@ -65,10 +64,9 @@ class Addshop extends StatelessWidget {
                             "Address",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          CustomTextfield(
+                          const CustomTextfield(
                             hint: "Enter the pet house address",
-                            onsave: (s) {},
-                            suffixIcon: const SizedBox.shrink(),
+                            suffixIcon: SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),
@@ -76,10 +74,9 @@ class Addshop extends StatelessWidget {
                             "Contact",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          CustomTextfield(
+                          const CustomTextfield(
                             hint: "Facebook/Instagram",
-                            onsave: (s) {},
-                            suffixIcon: const SizedBox.shrink(),
+                            suffixIcon: SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),
@@ -87,10 +84,9 @@ class Addshop extends StatelessWidget {
                             "Phone",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          CustomTextfield(
+                          const CustomTextfield(
                             hint: "Enter your phone number",
-                            onsave: (s) {},
-                            suffixIcon: const SizedBox.shrink(),
+                            suffixIcon: SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),

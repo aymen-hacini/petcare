@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/auth/editprofile.dart';
+import 'package:petcare/core/constants/color.dart';
+import 'package:petcare/core/functions/validinput.dart';
 import 'package:petcare/views/widgets/auth/customtextfield.dart';
 import 'package:petcare/views/widgets/auth/cutombtn1.dart';
 
-class Editprofile extends StatelessWidget {
+class Editprofile extends GetView<EditprofileControllerImp> {
   const Editprofile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => EditprofileControllerImp());
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -21,6 +25,7 @@ class Editprofile extends StatelessWidget {
           width: Get.width,
           padding: EdgeInsets.symmetric(horizontal: Get.width * .07),
           child: Form(
+            key: controller.editprofileform,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,8 +57,8 @@ class Editprofile extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 CustomTextfield(
+                  textcontroller: controller.firstname,
                   hint: "Enter your firstname",
-                  onsave: (s) {},
                   suffixIcon: const SizedBox.shrink(),
                   radius: 8,
                   fill: Colors.white,
@@ -63,8 +68,8 @@ class Editprofile extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 CustomTextfield(
+                  textcontroller: controller.lastname,
                   hint: "Enter your lastname",
-                  onsave: (s) {},
                   suffixIcon: const SizedBox.shrink(),
                   radius: 8,
                   fill: Colors.white,
@@ -74,8 +79,9 @@ class Editprofile extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 CustomTextfield(
+                  textcontroller: controller.email,
                   hint: "Enter your email address",
-                  onsave: (s) {},
+                  isvalid: (val) => validInput(val!, 8, 40, "email"),
                   suffixIcon: const SizedBox.shrink(),
                   radius: 8,
                   fill: Colors.white,
@@ -84,10 +90,18 @@ class Editprofile extends StatelessWidget {
                   height: 20,
                 ),
                 Center(
-                  child: Custombtn1(
-                      padding: Get.width * .1,
-                      text: "Save changes",
-                      onpressed: () {}),
+                  child: GetBuilder<EditprofileControllerImp>(
+                    builder: (controller) => controller.loading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColor.primaryColor,
+                            ),
+                          )
+                        : Custombtn1(
+                            padding: Get.width * .1,
+                            text: "Save changes",
+                            onpressed: () => controller.editProfile()),
+                  ),
                 )
               ],
             ),

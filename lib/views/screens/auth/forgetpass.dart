@@ -49,10 +49,9 @@ class Forgetpass extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
-                  CustomTextfield(
+                  const CustomTextfield(
                       hint: "Enter your email address",
-                      onsave: (s) {},
-                      suffixIcon: const SizedBox.shrink()),
+                      suffixIcon: SizedBox.shrink()),
                   const SizedBox(
                     height: 80,
                   ),
