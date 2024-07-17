@@ -13,6 +13,12 @@ class AppImageAsset {
   static const String changepass = "$imageRoot/change.png";
   static const String petsupplies = "$imageRoot/pet.png";
   static const String necklace = "$imageRoot/necklace.png";
+  static const String doc1 = "$imageRoot/doc1.jpeg";
+  static const String doc2 = "$imageRoot/doc2.jpeg";
+  static const String doc3 = "$imageRoot/doc3.jpeg";
+  static const String shop1 = "$imageRoot/shop1.jpeg";
+  static const String shop2 = "$imageRoot/shop2.jpeg";
+  static const String shop3 = "$imageRoot/shop3.jpeg";
 
 
 

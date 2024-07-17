@@ -6,6 +6,7 @@ import 'package:petcare/controller/home/clinic/doctor_controller.dart';
 import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
 import 'package:petcare/core/constants/routes_names.dart';
+import 'package:petcare/data/datasource/static/static.dart';
 
 import 'package:petcare/views/screens/home/home.dart';
 
@@ -90,7 +91,10 @@ class Clinic extends GetView<DoctorController> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                                 child: Image.asset(
-                                                    AppImageAsset.cat),
+                                                  AppImageAsset.doc1,
+                                                  fit: BoxFit.contain,
+                                                  scale: 1.6,
+                                                ),
                                               ),
                                             ),
                                             Column(
