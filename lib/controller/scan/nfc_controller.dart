@@ -11,7 +11,7 @@ class NFCController extends GetxController {
   var isLoading = false.obs;
 
   Future<void> searchPetByNFC() async {
-    const url = 'http://localhost:8000/api/disappeared-pets/search-by-qr-code';
+    const url = 'http://10.0.3.2:8000/api/disappeared-pets/search-by-qr-code';
     isLoading(true);
 
     try {
@@ -21,7 +21,7 @@ class NFCController extends GetxController {
       final response = await http.post(Uri.parse(url), headers: <String, String>{
         'Accept': 'application/json',
       }, body: {
-        "nfc_id": nfcTag.value
+        "qr_code_text": nfcTag.value
       });
 
       if (response.statusCode == 200) {

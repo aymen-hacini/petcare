@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:petcare/controller/home/homefeed_controller.dart';
 import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
@@ -33,204 +34,222 @@ class Home extends StatelessWidget {
           child: const Text("HOME"),
         ),
       ),
-      body: SafeArea(
-        child: Form(
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              GetBuilder<HomefeedControllerImp>(
-                builder: (controller) => SizedBox(
-                  height: Get.height * .055,
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (builder, index) => Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: InkWell(
-                        onTap: () => controller.changeCat(index),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 400),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: controller.currentindex == index
-                                  ? AppColor.backgroundColor
-                                  : Colors.white),
-                          width: 100,
-                          height: 5,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const CircleAvatar(
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage(AppImageAsset.cat)),
-                              Text(
-                                catnames[index],
-                                textAlign: TextAlign.right,
-                                style: Theme.of(context).textTheme.bodySmall,
-                              )
-                            ],
+      body: LiquidPullToRefresh(
+        animSpeedFactor: 4.0,
+        height: 80,
+        onRefresh: () => controller.handleRefresh(),
+        child: SafeArea(
+          child: Form(
+            child: ListView(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                GetBuilder<HomefeedControllerImp>(
+                  builder: (controller) => SizedBox(
+                    height: Get.height * .055,
+                    child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: 3,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (builder, index) => Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: InkWell(
+                          onTap: () => controller.changeCat(index),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 400),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: controller.currentindex == index
+                                    ? AppColor.backgroundColor
+                                    : Colors.white),
+                            width: 100,
+                            height: 5,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const CircleAvatar(
+                                    radius: 15,
+                                    backgroundImage:
+                                        AssetImage(AppImageAsset.cat)),
+                                Text(
+                                  catnames[index],
+                                  textAlign: TextAlign.right,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 10,
+                      separatorBuilder: (context, index) => const SizedBox(
+                        width: 10,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Searchfield(),
-              const SizedBox(
-                height: 20,
-              ),
-              DissapearedPetTitle(
-                title: "Pet Disappeared",
-                ontap: () => Get.toNamed(AppRoutesNames.seeallD),
-              ),
-              Container(
-                height: Get.height * .23,
-                margin: EdgeInsets.symmetric(
-                    horizontal: Get.width * .03, vertical: 10),
-                child: Obx(() {
-                  if (controller.disappearedPets.isEmpty) {
-                    return const Center(
-                      child: Text("No Dissapeared pets, Hooray !"),
-                    );
-                  } else {
-                    return ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.disappearedPets.length,
-                        separatorBuilder: (ctx, index) => const SizedBox(
-                              width: 10,
-                            ),
-                        itemBuilder: (ctx, index) {
-                          Pet pet = controller.disappearedPets[index];
-                          return InkWell(
-                            onTap: () => Get.toNamed(AppRoutesNames.details,
-                                arguments: {
-                                  "id": pet.id,
-                                  "section": "Dissapeared"
-                                }),
-                            child: Card(
-                              color: const Color(0xA3F28F8F),
-                              elevation: 3,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: pet.photo == null
-                                          ? Image.asset(AppImageAsset.cat)
-                                          : Image.network(pet.photo!),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "${pet.name}",
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                ],
+                const SizedBox(
+                  height: 20,
+                ),
+                const Searchfield(),
+                const SizedBox(
+                  height: 20,
+                ),
+                DissapearedPetTitle(
+                  title: "Pet Disappeared",
+                  ontap: () => Get.toNamed(AppRoutesNames.seeallD),
+                ),
+                Container(
+                  height: Get.height * .3,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: Get.width * .03, vertical: 10),
+                  child: Obx(() {
+                    if (controller.disappearedPets.isEmpty) {
+                      return const Center(
+                        child: Text("No Dissapeared pets, Hooray !"),
+                      );
+                    } else {
+                      return ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.disappearedPets.length,
+                          separatorBuilder: (ctx, index) => const SizedBox(
+                                width: 10,
                               ),
-                            ),
-                          );
-                        });
-                  }
-                }),
-              ),
-              DissapearedPetTitle(
-                title: "Pet Find",
-                ontap: () => Get.toNamed(AppRoutesNames.seeallF),
-              ),
-              Container(
-                height: Get.height * .23,
-                margin: EdgeInsets.symmetric(
-                    horizontal: Get.width * .03, vertical: 10),
-                child: Obx(() {
-                  if (controller.disappearedPets.isEmpty) {
-                    return const Center(
-                      child: Text("No found pets, Sad :("),
-                    );
-                  } else {
-                    return ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.foundPets.length,
-                        separatorBuilder: (ctx, index) => const SizedBox(
-                              width: 10,
-                            ),
-                        itemBuilder: (ctx, index) {
-                          Pet pet = controller.foundPets[index];
-                          return InkWell(
-                            onTap: () => Get.toNamed(AppRoutesNames.details,
-                                arguments: {"id": pet.id, "section": "found"}),
-                            child: Card(
-                              color: const Color(0xA3F28F8F),
-                              elevation: 3,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    child: ClipRRect(
+                          itemBuilder: (ctx, index) {
+                            Pet pet = controller.disappearedPets[index];
+                            return InkWell(
+                              onTap: () => Get.toNamed(AppRoutesNames.details,
+                                  arguments: {
+                                    "id": pet.id,
+                                    "section": "Dissapeared"
+                                  }),
+                              child: Card(
+                                color: const Color(0xA3F28F8F),
+                                elevation: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      child: ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
                                         child: pet.photo == null
                                             ? Image.asset(AppImageAsset.cat)
-                                            : Image.network(pet.photo!)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "${pet.name ?? pet.species}",
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
+                                            : Image.network(
+                                                pet.photo!,
+                                                fit: BoxFit.contain,
+                                              ),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        });
-                  }
-                }),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: Get.width * .1),
-                    child: FloatingActionButton(
-                        heroTag: "add",
-                        shape: const CircleBorder(),
-                        onPressed: () => Get.toNamed(AppRoutesNames.addanimal),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xffF8D629),
-                                    Color(0xff4D8EAF)
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "${pet.name}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ),
                                   ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                              borderRadius: BorderRadius.circular(100)),
-                          height: 100,
-                          width: 100,
-                          child: const Icon(Icons.create_outlined),
-                        )),
-                  ),
-                ],
-              )
-            ],
+                                ),
+                              ),
+                            );
+                          });
+                    }
+                  }),
+                ),
+                DissapearedPetTitle(
+                  title: "Pet Find",
+                  ontap: () => Get.toNamed(AppRoutesNames.seeallF),
+                ),
+                Container(
+                  height: Get.height * .23,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: Get.width * .03, vertical: 10),
+                  child: Obx(() {
+                    if (controller.disappearedPets.isEmpty) {
+                      return const Center(
+                        child: Text("No found pets, Sad :("),
+                      );
+                    } else {
+                      return ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.foundPets.length,
+                          separatorBuilder: (ctx, index) => const SizedBox(
+                                width: 10,
+                              ),
+                          itemBuilder: (ctx, index) {
+                            Pet pet = controller.foundPets[index];
+                            return InkWell(
+                              onTap: () => Get.toNamed(AppRoutesNames.details,
+                                  arguments: {
+                                    "id": pet.id,
+                                    "section": "found"
+                                  }),
+                              child: Card(
+                                color: const Color(0xA3F28F8F),
+                                elevation: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: pet.photo == null
+                                              ? Image.asset(AppImageAsset.cat)
+                                              : Image.network(
+                                                  pet.photo!,
+                                                  fit: BoxFit.contain,
+                                                )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "${pet.name ?? pet.species}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                    }
+                  }),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: Get.width * .1),
+                      child: FloatingActionButton(
+                          heroTag: "add",
+                          shape: const CircleBorder(),
+                          onPressed: () =>
+                              Get.toNamed(AppRoutesNames.addanimal),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                    colors: [
+                                      Color(0xffF8D629),
+                                      Color(0xff4D8EAF)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter),
+                                borderRadius: BorderRadius.circular(100)),
+                            height: 100,
+                            width: 100,
+                            child: const Icon(Icons.create_outlined),
+                          )),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

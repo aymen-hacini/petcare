@@ -112,4 +112,11 @@ class HomefeedControllerImp extends HomefeedController
       Get.snackbar('Error', e.toString());
     }
   }
+
+  Future<void> handleRefresh() {
+    return Future.delayed(const Duration(seconds: 1), () {
+      fetchalldissapearedpets();
+      fetchAllfoundpets();
+    });
+  }
 }

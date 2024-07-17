@@ -11,7 +11,12 @@ class ApiLinkNames {
   static const editprofile = "$server/api/edit-profile";
   static const changepass = "$server/api/change-password";
 
-// ======================Forgetpass==================================
+// ======================Petdoctors==================================
+  static const allDocs = "$server/api/pet-doctors";
+  static const addDoc = "$server/api/pet-doctors";
+// ======================petSupplies==================================
+  static const allsuppliers = "$server/api/pet-suppliers";
+  static const addsuppliers = "$server/api/pet-suppliers";
 
 // ======================Home==================================
   static const home = "$server/home";

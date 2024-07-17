@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:petcare/controller/home/petdetails_controller.dart';
+import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
 import 'package:petcare/data/models/pet.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class Details extends GetView<PetdetailsController> {
@@ -70,7 +72,7 @@ class Details extends GetView<PetdetailsController> {
                       Pet pet = controller.pet.value;
 
                       return Container(
-                        height: Get.height * .6,
+                        height: Get.height * .7,
                         width: Get.width * .8,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 20),
@@ -86,7 +88,10 @@ class Details extends GetView<PetdetailsController> {
                             Center(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(35),
-                                child: Image.network(pet.photo!) ??
+                                child: Image.network(
+                                      pet.photo!,
+                                      fit: BoxFit.fill,
+                                    ) ??
                                     Image.asset(AppImageAsset.cat),
                               ),
                             ),
@@ -149,10 +154,29 @@ class Details extends GetView<PetdetailsController> {
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ),
-                            Center(child: QrImageView(data: pet.qrCodeText!,size: 100,),)
+                            Center(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 2,
+                                    backgroundColor: AppColor.primaryColor,
+                                    foregroundColor: Colors.white),
+                                onPressed: () => Get.dialog(
+                                    Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Center(
+                                        child: PrettyQrView.data(
+                                            data: pet.qrCodeText!),
+                                      ),
+                                    ),
+                                    useSafeArea: true,
+                                    barrierDismissible: true,
+                                    barrierColor: const Color.fromARGB(
+                                        131, 255, 255, 255)),
+                                child: const Text("Generate QR Code"),
+                              ),
+                            )
                           ],
                         ),
-                        
                       );
                     },
                   ),
@@ -165,4 +189,3 @@ class Details extends GetView<PetdetailsController> {
     );
   }
 }
-

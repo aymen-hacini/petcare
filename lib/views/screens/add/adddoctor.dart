@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/home/clinic/doctor_controller.dart';
 import 'package:petcare/core/constants/color.dart';
+import 'package:petcare/data/models/doctor.dart';
 import 'package:petcare/views/widgets/auth/customtextfield.dart';
 import 'package:petcare/views/widgets/auth/cutombtn1.dart';
 
-class Adddoctor extends StatelessWidget {
+class Adddoctor extends GetView<DoctorController> {
   const Adddoctor({super.key});
 
   @override
@@ -22,6 +24,7 @@ class Adddoctor extends StatelessWidget {
                 width: Get.width,
                 child: SingleChildScrollView(
                   child: Form(
+                    key: controller.doctorForm,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -54,9 +57,10 @@ class Adddoctor extends StatelessWidget {
                             "Name",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          const CustomTextfield(
+                          CustomTextfield(
+                            textcontroller: controller.name,
                             hint: "Enter your name",
-                            suffixIcon: SizedBox.shrink(),
+                            suffixIcon: const SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),
@@ -64,9 +68,10 @@ class Adddoctor extends StatelessWidget {
                             "Clinic name",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          const CustomTextfield(
+                          CustomTextfield(
+                            textcontroller: controller.clinicname,
                             hint: "Enter your clinic name",
-                            suffixIcon: SizedBox.shrink(),
+                            suffixIcon: const SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),
@@ -74,9 +79,10 @@ class Adddoctor extends StatelessWidget {
                             "Address",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          const CustomTextfield(
+                          CustomTextfield(
+                            textcontroller: controller.address,
                             hint: "Enter your address",
-                            suffixIcon: SizedBox.shrink(),
+                            suffixIcon: const SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),
@@ -84,17 +90,24 @@ class Adddoctor extends StatelessWidget {
                             "Phone",
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          const CustomTextfield(
+                          CustomTextfield(
+                            textcontroller: controller.phone,
                             hint: "Enter your phone number",
-                            suffixIcon: SizedBox.shrink(),
+                            suffixIcon: const SizedBox.shrink(),
                             radius: 8,
                             fill: AppColor.choosepetbgcolor,
                           ),
                           Center(
-                            child: Custombtn1(
-                                padding: Get.width * .1,
-                                text: "PUBLISH",
-                                onpressed: () {}),
+                            child: GetBuilder<DoctorController>(
+                              builder: (controller) =>
+                                  controller.isLoading.value
+                                      ? const CircularProgressIndicator()
+                                      : Custombtn1(
+                                          padding: Get.width * .1,
+                                          text: "PUBLISH",
+                                          onpressed: () =>
+                                              controller.createPetDoctor()),
+                            ),
                           )
                         ]),
                   ),
