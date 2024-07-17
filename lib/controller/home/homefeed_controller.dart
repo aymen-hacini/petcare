@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
+import 'package:petcare/core/functions/getToken.dart';
+import 'package:petcare/core/services/services.dart';
 import 'package:petcare/data/datasource/remote/pets/allpets.dart';
 import 'package:petcare/data/models/pet.dart';
+import 'package:petcare/views/screens/auth/auth.dart';
 
 abstract class HomefeedController extends GetxController {
   changeCat(int index);
@@ -48,6 +51,12 @@ class HomefeedControllerImp extends HomefeedController
     }
 
     update();
+  }
+
+  signOut() {
+    MyServices myServices = Get.find();
+    myServices.sharedprefs.remove("token");
+    Get.offAll(const Auth());
   }
 
   fetchalldissapearedpets() async {

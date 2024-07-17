@@ -1,3 +1,4 @@
+import 'package:petcare/core/constants/apilink_names.dart';
 import 'package:petcare/data/models/user.dart';
 
 class Pet {
@@ -69,6 +70,6 @@ class Pet {
     if (url.startsWith('public/')) {
       url = url.replaceFirst('public/', '/');
     }
-    return 'https://localhost:8000/storage/$url'; // Replace with your actual base URL
+    return '${ApiLinkNames.serverimages}storage$url'; // Replace with your actual base URL
   }
 }

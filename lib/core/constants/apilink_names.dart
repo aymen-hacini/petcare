@@ -1,7 +1,7 @@
 class ApiLinkNames {
-  static const server = "http://localhost:8000";
-  static const images =
-      "http://10.0.2.2:8000/lost-pet-finder-be-main/public/users";
+  static const server = "http://10.0.3.2:8000";
+  static const serverimages =
+      "http://10.0.3.2:8000/";
   static const test = "$server/test.php";
 // ======================Images==================================
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:petcare/controller/home/homefeed_controller.dart';
 import 'package:petcare/core/constants/color.dart';
 import 'package:petcare/core/constants/imageassets.dart';
 import 'package:petcare/core/constants/routes_names.dart';
-import 'package:petcare/views/screens/auth/auth.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends GetView<HomefeedControllerImp> {
   const Profile({super.key});
 
   @override
@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         actions: const [Icon(Icons.notifications)],
-        leading:  Hero(
+        leading: Hero(
           tag: "settings",
           child: IconButton(
             icon: const Icon(Icons.settings),
@@ -171,7 +171,7 @@ class Profile extends StatelessWidget {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () => Get.offAll(const Auth()),
+                  onTap: () => controller.signOut(),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

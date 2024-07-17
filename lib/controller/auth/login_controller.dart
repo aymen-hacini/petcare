@@ -50,6 +50,15 @@ class LoginControllerImp extends LoginController {
   }
 
   @override
+  void dispose() {
+    signinemail.dispose();
+    signinpass.dispose();
+    loading = false;
+
+    super.dispose();
+  }
+
+  @override
   hidepass() {
     ischecked = !ischecked;
     update();

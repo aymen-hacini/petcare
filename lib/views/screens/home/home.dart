@@ -97,7 +97,7 @@ class Home extends StatelessWidget {
               Container(
                 height: Get.height * .23,
                 margin: EdgeInsets.symmetric(
-                    horizontal: Get.width * .05, vertical: 10),
+                    horizontal: Get.width * .03, vertical: 10),
                 child: Obx(() {
                   if (controller.disappearedPets.isEmpty) {
                     return const Center(
@@ -156,7 +156,7 @@ class Home extends StatelessWidget {
               Container(
                 height: Get.height * .23,
                 margin: EdgeInsets.symmetric(
-                    horizontal: Get.width * .05, vertical: 10),
+                    horizontal: Get.width * .03, vertical: 10),
                 child: Obx(() {
                   if (controller.disappearedPets.isEmpty) {
                     return const Center(
@@ -183,11 +183,10 @@ class Home extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: pet.photo == null
-                                          ? Image.asset(AppImageAsset.cat)
-                                          : Image.network(pet.photo!),
-                                    ),
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: pet.photo == null
+                                            ? Image.asset(AppImageAsset.cat)
+                                            : Image.network(pet.photo!)),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),

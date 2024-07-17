@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:petcare/controller/home/petdetails_controller.dart';
 import 'package:petcare/core/constants/imageassets.dart';
 import 'package:petcare/data/models/pet.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class Details extends GetView<PetdetailsController> {
   const Details({super.key});
@@ -64,19 +65,12 @@ class Details extends GetView<PetdetailsController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(35),
-                    child: Image.asset(AppImageAsset.cat),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   Obx(
                     () {
                       Pet pet = controller.pet.value;
 
                       return Container(
-                        height: Get.height * .5,
+                        height: Get.height * .6,
                         width: Get.width * .8,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 20),
@@ -89,6 +83,16 @@ class Details extends GetView<PetdetailsController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Center(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(35),
+                                child: Image.network(pet.photo!) ??
+                                    Image.asset(AppImageAsset.cat),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             Text(
                               Get.arguments["section"] == "found"
                                   ? "Found"
@@ -145,11 +149,13 @@ class Details extends GetView<PetdetailsController> {
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ),
+                            Center(child: QrImageView(data: pet.qrCodeText!,size: 100,),)
                           ],
                         ),
+                        
                       );
                     },
-                  )
+                  ),
                 ],
               ),
             )
@@ -159,3 +165,4 @@ class Details extends GetView<PetdetailsController> {
     );
   }
 }
+

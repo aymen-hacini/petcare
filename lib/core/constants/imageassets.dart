@@ -12,6 +12,7 @@ class AppImageAsset {
   static const String doc = "$imageRoot/docbg.png";
   static const String changepass = "$imageRoot/change.png";
   static const String petsupplies = "$imageRoot/pet.png";
+  static const String necklace = "$imageRoot/necklace.png";
 
 
 

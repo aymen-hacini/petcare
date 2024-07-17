@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petcare/controller/homepage/homepage_controller.dart';
 import 'package:petcare/core/constants/imageassets.dart';
+import 'package:petcare/core/constants/routes_names.dart';
 import 'package:petcare/data/datasource/static/static.dart';
 import 'package:petcare/views/widgets/homepage/mynavbar.dart';
 
@@ -17,7 +18,7 @@ class Homepage extends GetView<HomepageControllerImp> {
         splashColor: Colors.transparent,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        onPressed: () {},
+        onPressed: () => Get.toNamed(AppRoutesNames.scanScreen),
         child: Transform.scale(
           scale: 1.6,
           child: Image.asset(

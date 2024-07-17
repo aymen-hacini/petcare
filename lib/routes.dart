@@ -18,6 +18,9 @@ import 'package:petcare/views/screens/infos/docinfo.dart';
 import 'package:petcare/views/screens/infos/petinfo.dart';
 import 'package:petcare/views/screens/permissions/location.dart';
 import 'package:petcare/views/screens/permissions/notifications.dart';
+import 'package:petcare/views/screens/scan/nfcscan.dart';
+import 'package:petcare/views/screens/scan/qrcodescan.dart';
+import 'package:petcare/views/screens/scan/scan.dart';
 import 'package:petcare/views/screens/settings/changepass.dart';
 import 'package:petcare/views/screens/settings/editprofile.dart';
 import 'package:petcare/views/screens/settings/settings.dart';
@@ -44,4 +47,8 @@ List<GetPage<dynamic>> routes = [
   GetPage(name: AppRoutesNames.seeallD, page: () => const SeeallD()),
   GetPage(name: AppRoutesNames.seeallF, page: () => const SeeallF()),
   GetPage(name: AppRoutesNames.details, page: () => const Details()),
+  GetPage(name: AppRoutesNames.scanScreen, page: () => const Scan()),
+  GetPage(name: AppRoutesNames.nfcScan, page: () => const NFCScannerPage()),
+  GetPage(
+      name: AppRoutesNames.qrcodeScan, page: () => const QRCodeScannerPage()),
 ];

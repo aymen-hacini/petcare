@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:petcare/core/constants/apilink_names.dart';
 import 'package:petcare/core/functions/getToken.dart';
@@ -25,6 +26,7 @@ class Createpet {
         "sex": sex,
         "address": address,
         "phone_number": phone,
+
       },
     );
 
@@ -34,6 +36,7 @@ class Createpet {
       throw Exception('Failed to create disappeared pet');
     }
   }
+  
 
   Future<Pet> createFoundPet(String cat, String species, String sex,
       String address, String phone) async {

@@ -24,6 +24,13 @@ class AppRoutesNames {
   static const String enablelocation = "/location";
   static const String enablenotify = "/notifications";
 
+  //Scan
+  static const String scanScreen = "/scanScreen";
+  static const String qrcodeScan = "/qrcodeScan";
+  static const String nfcScan = "/nfcScan";
+
+
+
   //add
   static const String addpet = "/addpet";
   static const String addanimal = "/addanimal";

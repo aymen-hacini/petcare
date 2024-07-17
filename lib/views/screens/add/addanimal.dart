@@ -71,17 +71,32 @@ class FindTabView extends GetView<AddanimalController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: AppColor.secondaryColor,
-                    child: Icon(
-                      Icons.camera_alt_outlined,
-                      size: 50,
-                    ),
-                  ),
-                ),
+                child: Obx(() {
+                  if (controller.selectedImage.value != null) {
+                    return IconButton(
+                      onPressed: () => controller.pickImage(),
+                      icon: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: AppColor.secondaryColor,
+                          child: Image.file(
+                            controller.selectedImage.value!,
+                            fit: BoxFit.contain,
+                          )),
+                    );
+                  } else {
+                    return IconButton(
+                      onPressed: () => controller.pickImage(),
+                      icon: const CircleAvatar(
+                        radius: 50,
+                        backgroundColor: AppColor.secondaryColor,
+                        child: Icon(
+                          Icons.camera_alt_outlined,
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  }
+                }),
               ),
               Center(
                 child: Text(
@@ -177,17 +192,32 @@ class DissapearedTabView extends GetView<AddanimalController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: AppColor.secondaryColor,
-                    child: Icon(
-                      Icons.camera_alt_outlined,
-                      size: 50,
-                    ),
-                  ),
-                ),
+                child: Obx(() {
+                  if (controller.selectedImage.value != null) {
+                    return IconButton(
+                      onPressed: () => controller.pickImage(),
+                      icon: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: AppColor.secondaryColor,
+                          child: Image.file(
+                            controller.selectedImage.value!,
+                            fit: BoxFit.contain,
+                          )),
+                    );
+                  } else {
+                    return IconButton(
+                      onPressed: () => controller.pickImage(),
+                      icon: const CircleAvatar(
+                        radius: 50,
+                        backgroundColor: AppColor.secondaryColor,
+                        child: Icon(
+                          Icons.camera_alt_outlined,
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  }
+                }),
               ),
               Center(
                 child: Text(
@@ -265,7 +295,7 @@ class DissapearedTabView extends GetView<AddanimalController> {
                       : Custombtn1(
                           padding: Get.width * .1,
                           text: "PUBLISH",
-                          onpressed: () => controller.createDisappearedPet()),
+                          onpressed: () => controller.createDissapearedPet()),
                 ),
               )
             ],
